@@ -94,6 +94,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 if (process.env.NODE_ENV === 'development'){
-  module.exports.output.path =  path.resolve(__dirname, './dist'),
-    module.exports.output.publicPath= '/dist/'
+  module.exports.output.path =  path.resolve(__dirname, './'),
+    module.exports.output.publicPath= '/'
 }

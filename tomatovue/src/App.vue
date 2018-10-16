@@ -1,22 +1,45 @@
 <template>
   <div id="app">
-    <!--<img src="./assets/logo.png">-->
-    <h1>This am Y'all tomato.</h1>
+    <img src="./assets/tomato.svg" height="120vh">
+    <h1>Ask the tomato a question.</h1>
     <input type="text" v-model="question">
-    <button>Ask!</button>
+    <button @click="sendQuestion()">Ask!</button>
+    <h3>Answer:</h3><br/>
+    <p>{{answer}}</p>
 
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      question:''
+      msg: 'No body asked for this!',
+      question:'',
+      answer:'this will take a long time to appear!',
     }
-  }
+  },
+  methods:{
+    sendQuestion(){
+      console.log('I gon dun asken da question.')
+      axios.get('/users',{
+        'timeout':Infinity,
+        params:{
+          question:this.question,
+        }
+      }).then((response)=>{
+        console.log(response);
+        this.answer = response.data? response.data : 'there was an error answering the question';
+      }).catch((error)=>{
+        console.log(error.response);
+        this.answer = 'There was a problem fetching the quesion answer.'
+      })
+
+    }
+  },
 }
 </script>
 
